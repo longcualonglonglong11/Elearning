@@ -1,0 +1,100 @@
+<header class="container-fluid border-bottom"
+	xmlns:th="http://www.thymeleaf.org" th:fragment="header">
+	<nav class="navbar navbar-expand-sm navbar-light bg-light">
+		<a class="navbar-brand" th:href="@{/lecturer}">Elearning</a>
+		<button class="navbar-toggler d-lg-none" type="button"
+			data-toggle="collapse" data-target="#collapsibleNavId"
+			aria-controls="collapsibleNavId" aria-expanded="false"
+			aria-label="Toggle navigation"></button>
+		<div class="collapse navbar-collapse row" id="collapsibleNavId">
+			<div class="col-md-6">
+				<ul
+					class="navbar-nav mr-auto mt-2 mt-lg-0 d-flex align-items-center justify-content-between">
+					<li class="nav-item mr-3">
+						<div class="dropdown">
+							<a class="btn btn-outline-light dropdown-toggle"
+								data-toggle="dropdown"> <i class="fa fa-th"></i> <span
+								class="ml-2">Categories</span>
+							</a>
+							<div class="dropdown-menu">
+
+								<a th:href="@{/course/category/{id}(id=${item.id})}"
+									th:each="item : ${categories}" class="
+									dropdown-item">
+									<i th:class="${item.icon}"></i> <span th:text="${item.title}">Development</span>
+
+								</a>
+							</div>
+							<!-- 	</a> <a class="dropdown-item" href="#"> <i
+									class="fa fa-camera-retro mr-1"></i> <span>Photography</span>
+								</a> <a class="dropdown-item" href="#"> <i
+									class="fa fa-bar-chart mr-1"></i> <span>Business</span>
+								</a> <a class="dropdown-item" href="#"> <i
+									class="fa fa-desktop mr-1"></i> <span>IT & Software</span>
+								</a> <a class="dropdown-item" href="#"> <i
+									class="fa fa-handshake-o mr-1"></i> <span>Marketing</span>
+								</a> <a class="dropdown-item" href="#"> <i
+									class="fa fa-music mr-1"></i> <span>Music</span>
+								</a> <a class="dropdown-item" href="#"> <i
+									class="fa fa-pencil-square-o mr-1"></i> <span>Design</span>
+								</a> <a class="dropdown-item" href="#"> <i
+									class="fa fa-cutlery mr-1"></i> <span>Cooking</span>-->
+						</div>
+					</li>
+					<li class="nav-item w-100">
+						<form th:action="@{/home/search}" method="post"
+							class="input-group nav-search">
+							<input type="text" class="form-control" name="querry"
+								placeholder="Search courses">
+							<div class="input-group-append">
+								<button class="btn bg-white text-danger">
+									<i class="fa fa-search"></i>
+								</button>
+							</div>
+						</form>
+					</li>
+				</ul>
+			</div>
+
+
+
+			<div th:if="${account == null}" class="col-md-5 text-right">
+				<a th:href="@{/login}" class="btn btn-outline-secondary"> Login</a>
+				<a th:href="@{/register}" class="btn btn-danger ml-2">Sign up</a>
+			</div>
+			<ul class="col-md-5 float-md-right">
+				<li th:if="${account != null}"
+					class="user-profile header-notification  d-flex justify-content-end">
+					<div class="row">
+
+						<div class="dropdown-primary dropdown">
+							<div class="dropdown-toggle" data-toggle="dropdown">
+								<img style="width: 100px;" th:src="${account.avatar}"
+									class="img-radius" alt="User-Profile-Image"> <span
+									th:text="${account.fullname}">Admin</span>
+								<!-- <span th:text="${#authentication.getPrincipal().getFullname()}"></span> -->
+								<p class="text-success" th:utext="|&nbsp&nbsp&nbsp Balance: <br />&nbsp&nbsp&nbsp&nbsp${account.balance} $|">></p>
+
+								<i class="feather icon-chevron-down"></i>
+
+
+							</div>
+							<ul class="show-notification profile-notification dropdown-menu"
+								data-dropdown-in="fadeIn" data-dropdown-out="fadeOut">
+								<li><a th:href="@{/lecturer}"> <i
+										class="feather icon-user"></i> My course
+								</a></li>
+								<li><a th:href="@{/client/myprofile}"> <i
+										class="feather icon-user"></i> Profile
+								</a></li>
+								<li><a th:href="@{/logout}"> <i
+										class="feather icon-log-out"></i> Logout
+								</a></li>
+							</ul>
+						</div>
+					</div>
+			</ul>
+
+		</div>
+	</nav>
+</header>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="/layout/user/default">
+
+<head>
+<title>HOMEPAGE</title>
+</head>
+<body>
+
+	<div layout:fragment="content">
+		<nav aria-label="breadcrumb">
+			<div class="container-fluid">
+
+			</div>
+		</nav>
+		
+
+		<section class="banner">
+
+			
+			<div class="banner-bottom">
+				<div class="container-fluid">
+					<div class="row"></div>
+				</div>
+			</div>
+		<!-- BEGIN BANNER -->
+		<!-- BEGIN CONTENT -->
+		<section class="mt-5">
+			<div class="container">
+			<h1 class="title font-weight-bold"><kbd th:text="${'Search by: ' +  querry}"></kbd></h1>
+
+				<div class="row">
+				<div class="col-md-3" th:each="item : ${courses}">
+					<a th:href="@{/course/detail/{id}(id=${item.id})}" class="my-course-item"> <img width="240" height="140"
+						th:src="${item.image}" alt="">
+					
+						<h6 class="my-course-title" th:text="${item.title}"></h6>
+						<div class="my-course-desc" th:text="${item.description}">Java
+							Python Android and C# Expert Developer - 467K+ students The
+							Complete Guide (incl Hooks, React Router, Redux)</div>
+
+						<div class="my-course-author">
+							<h6>
+								<div class="font-weight-bold">
+									<small><h5 th:text="${item.author}">LONGGGGG</h5></small>
+								</div>
+								<div class="font-weight-bold">
+									<h4 class="font-weight-bold" th:text="${item.price}+'$'">55$</h4>
+								</div>
+								
+
+
+							</h6>
+
+						</div>
+					</a>
+				</div>
+				</div>
+		</section>
+
+	</div>
+
+</body>

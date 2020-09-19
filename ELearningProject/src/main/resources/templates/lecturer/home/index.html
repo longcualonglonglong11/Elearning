@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="/layout/lecturer/default">
+
+<head>
+<title>MY COURSE</title>
+</head>
+<body>
+
+	<div layout:fragment="content">
+		<nav aria-label="breadcrumb">
+			<div class="container-fluid">
+				<ol class="breadcrumb bg-white mb-0 py-2">
+					<li class="breadcrumb-item"><a href="#"><i
+							class="fa fa-home mr-1"></i>Home</a></li>
+
+				</ol>
+			</div>
+		</nav>
+		<section class="course-banner">
+			<div class="container">
+
+				<h1 class="text-center">Welcome Lectuer !</h1>
+				<h1 class="text-center" th:text="${account.fullname}"></h1>
+
+			</div>
+		</section>
+		<!-- BEGIN CONTENT -->
+		<section class="mt-5">
+			<div class="container">
+
+
+
+
+				<div class="row">
+
+					<div class="col-md-3" th:each="item : ${courses}">
+						<a th:href="@{/lecturer/course/detail/{id}(id=${item.id})}"
+							class="my-course-item"> <img width="240" height="140"
+							th:src="${item.image}" alt="">
+
+
+							<h6 class="my-course-title" th:text="${item.title}"></h6>
+							<div class="my-course-desc" th:text="${item.description}">Java
+								Python Android and C# Expert Developer - 467K+ students The
+								Complete Guide (incl Hooks, React Router, Redux)</div>
+
+							<div class="my-course-author">
+								<h6>
+									<div class="font-weight-bold">
+										<small><h5 th:text="${item.author}">LONGGGGG</h5></small>
+									</div>
+									<div class="font-weight-bold">
+										<h4
+											th:text="${item.price - item.price * item.discount / 100 + '$'}"
+											class="font-weight-bold">55$</h4>
+									</div>
+
+
+
+								</h6>
+
+							</div>
+
+						</a>
+					</div>
+					<a style="width: 240px; height: 317px;"
+						th:href="@{/lecturer/course/add}"
+						class=" col-md-3 text-uppercase btn btn-sm btn-primary  btn-round py-1 font-weight-bold"><i
+						style="font-size: 15em;" class="pt-30 fa fa-plus "></i><br>ADD
+						NEW COURSE</a>
+				</div>
+			</div>
+		</section>
+	</div>
+
+</body>

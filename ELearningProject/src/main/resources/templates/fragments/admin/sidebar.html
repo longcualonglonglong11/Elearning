@@ -1,0 +1,62 @@
+<nav class="pcoded-navbar" xmlns:th="http://www.thymeleaf.org" th:fragment="sidebar">
+	<div class="pcoded-inner-navbar main-menu">
+		<ul class="pcoded-item pcoded-left-item">
+			<li class="">
+				<a th:href="@{/admin/home}"> 
+					<span class="pcoded-micon">
+						<i class="fas fa-house-user"></i>
+					</span> 
+					<span class="pcoded-mtext">Dashboard</span>
+				</a>
+			</li>
+			<li class="">
+				<a th:href="@{/admin/category}"> 
+					<span class="pcoded-micon">
+						<i class="fas fa-list-ol"></i>
+					</span> 
+					<span class="pcoded-mtext">Category</span>
+				</a>
+			</li>
+			<li class="">
+				<a th:href="@{/admin/course}"> 
+					<span class="pcoded-micon">
+						<i class="fab fa-leanpub"></i>
+					</span>
+					<span class="pcoded-mtext">Course</span>
+				</a>
+			</li>
+			<li class="">
+				<a th:href="@{/admin/video}"> 
+					<span class="pcoded-micon">
+						<i class="fas fa-video"></i>
+					</span> 
+					<span class="pcoded-mtext">Video</span>
+				</a>
+			</li>
+			<li class="">
+				<a th:href="@{/admin/target}"> 
+					<span class="pcoded-micon">
+						<i class="fas fa-check-square"></i>
+					</span> 
+					<span class="pcoded-mtext">Target</span>
+				</a>
+			</li>
+			<li class="">
+				<a th:href="@{/admin/user}"> 
+					<span class="pcoded-micon">
+						<i class="fas fa-users"></i>
+					</span> 
+					<span class="pcoded-mtext">User</span>
+				</a>
+			</li>
+			<li class="">
+				<a th:href="@{/admin/role}"> 
+					<span class="pcoded-micon">
+						<i class="fas fa-user-cog"></i>
+					</span> 
+					<span class="pcoded-mtext">Role</span>
+				</a>
+			</li>
+		</ul>
+	</div>
+</nav>

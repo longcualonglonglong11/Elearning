@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout/lecturer/default">
+<head>
+<title>MEMBER LIST</title>
+
+
+
+</head>
+<body>
+	<div layout:fragment="content">
+		<div class="row">
+			<div class="col-md-12 mb-2">
+				<div class="page-header-breadcrumb">
+					<ol class="breadcrumb bg-light mb-0 py-2">
+
+						<li class="breadcrumb-item"><a th:href="@{/lecturer}"><i
+								class="fa fa-home mr-1"></i><span th:text="Home"></span> </a></li>
+						<li class="breadcrumb-item"><i
+							th:class="${category !=null ? category.icon : 'fa fa-home mr-1'}"></i>
+							<a th:text="${category !=null ? category.title : ' ' }"
+							th:href="@{/course/category/{id}(id=${category.id})}"> Course
+								List </a></li>
+						<li class="breadcrumb-item"><a th:text="${course.title}"
+							th:href="@{/lecturer/course/detail/{id}(id=${course.id})}">
+								Course List </a></li>
+						<li class="breadcrumb-item active" aria-current="page">Members</li>
+					</ol>
+				</div>
+			</div>
+			<div class="col-sm-12">
+				<div class="card px-3">
+					<div class="card-header px-0 pb-2">
+						<h2 class="text-uppercase text-center">Member List</h2>
+						<a th:href="@{/lecturer/course/member/add/{id}(id=${course.id})}"
+							class="text-uppercase btn btn-sm btn-primary">Add member to
+							class</a>
+					</div>
+
+					<div class="card-block table-border-style">
+						<div class="table-responsive">
+
+							<table class="table table-bordered">
+								<thead>
+									<tr>
+										<th class="text-center">No</th>
+										<th class="text-center">Email</th>
+
+										<th class="text-center">Fullname</th>
+										<th class="text-center">Avatar</th>
+										<th class="text-center">Phone</th>
+										<th class="text-center">Address</th>
+										<th class="text-center">Role name</th>
+
+										<th class="text-center">Action</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr class="text-center" th:if="${users.empty}">
+										<td colspan="100%">List is empty!</td>
+									</tr>
+									<tr th:each="item : ${users}">
+										<td class="text-center" th:text="${ itemStat.index + 1 }"></td>
+										<td class="text-center" th:text="${ item.email }"></td>
+										<td class="text-center" th:text="${ item.fullname }"></td>
+										<td><img th:src='${ item.avatar}' height="50" width="70"
+											class="p-1 border" /></td>
+										<td class="text-center" th:text="${ item.phone }"></td>
+										<td class="text-center" th:text="${ item.address }"></td>
+										<td class="text-center" th:text="${ item.roleName }"></td>
+
+										<td class="text-center"><a
+										th:if="${item.roleId != coHostId}"
+											th:href="@{/lecturer/course/member/authorize/{id}/{courseId}(id=${item.id} ,courseId=${course.id})}"
+											class="btn btn-sm btn-success btn-round py-1 font-weight-bold">
+												Authorize to Co-host </a> 
+												<a
+										th:if="${item.roleId == coHostId}"
+											th:href="@{/lecturer/course/member/cancel/{id}/{courseId}(id=${item.id} ,courseId=${course.id})}"
+											class="btn btn-sm btn-success btn-round py-1 font-weight-bold">
+												Cancel Co-host right </a> 
+												<a
+											th:href="@{/lecturer/course/member/delete/{id}/{courseId}(id=${item.id} ,courseId=${course.id})}"
+											class="btn btn-sm btn-danger btn-round py-1 font-weight-bold">
+												Kick </a></td>
+									</tr>
+
+								</tbody>
+								<h2 class="d-flex justify-content-center text-danger medium"
+									th:if="${message != null}" th:text="${message}"></h2>
+
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

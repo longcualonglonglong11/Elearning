@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout/admin/default">
+<head>
+<title>USER LIST</title>
+
+
+
+</head>
+<body>
+	<div layout:fragment="content">
+		<div class="row">
+			<div class="col-md-12 mb-2">
+				<div class="page-header-breadcrumb">
+					<ul class="breadcrumb-title">
+						<li class="breadcrumb-item"><a th:href="@{/admin}"> <i
+								class="feather icon-home"></i> Home page
+						</a></li>
+						<li class="breadcrumb-item"><a href="#!">User List</a></li>
+					</ul>
+				</div>
+			</div>
+			<div class="col-sm-12">
+				<div class="card px-3">
+					<div class="card-header px-0 pb-2">
+						<h2 class="text-uppercase text-center">User List</h2>
+						<a th:href="@{/admin/user/add}"
+							class="text-uppercase btn btn-sm btn-primary">Add new user</a>
+					</div>
+
+					<div class="card-block table-border-style">
+						<div class="table-responsive">
+
+							<table class="table table-bordered">
+								<thead>
+									<tr>
+										<th class="text-center">No</th>
+										<th class="text-center">Email</th>
+
+										<th class="text-center">Fullname</th>
+										<th class="text-center">Avatar</th>
+										<th class="text-center">Phone</th>
+										<th class="text-center">Address</th>
+										<th class="text-center">Balance</th>
+
+										<th class="text-center">Role Name</th>
+
+										<th class="text-center">Action</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr class="text-center" th:if="${users.empty}">
+										<td colspan="5">List is empty!</td>
+									</tr>
+									<tr th:each="item : ${users}">
+										<td class="text-center" th:text="${ itemStat.index + 1 }"></td>
+										<td class="text-center" th:text="${ item.email }"></td>
+										<td class="text-center" th:text="${ item.fullname }"></td>
+										<td><img th:src='${ item.avatar}' height="50" width="70"
+											class="p-1 border" /></td>
+										<td class="text-center" th:text="${ item.phone }"></td>
+										<td class="text-center" th:text="${ item.address }"></td>
+										<td class="text-center" th:text="${ item.balance }"></td>
+
+										<td class="text-center" th:text="${ item.roleName }"></td>
+
+										<td class="text-center"><a
+											th:href="@{/admin/user/edit/{id}(id=${item.id})}"
+											class="btn btn-sm btn-info btn-round py-1 font-weight-bold">
+												Edit </a> <a th:href="@{/admin/user/delete/{id}(id=${item.id})}"
+											class="btn btn-sm btn-danger btn-round py-1 font-weight-bold">
+												Delete </a></td>
+									</tr>
+
+								</tbody>
+								<h2 class="d-flex justify-content-center text-danger medium"
+									th:if="${message != null}" th:text="${message}"></h2>
+
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

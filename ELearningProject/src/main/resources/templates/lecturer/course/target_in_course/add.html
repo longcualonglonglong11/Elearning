@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout/lecturer/default">
+<head>
+<title>ADD NEW TARGET</title>
+</head>
+<body>
+	<div layout:fragment="content">
+		<div class="row">
+			<div class="col-md-12 mb-2">
+				<div class="page-header-breadcrumb">
+					<ol class="breadcrumb bg-light mb-0 py-2">
+
+						<li class="breadcrumb-item"><a th:href="@{/home}"><i
+								class="fa fa-home mr-1"></i><span th:text="Home"></span> </a></li>
+						<li class="breadcrumb-item"><i
+							th:class="${category !=null ? category.icon : 'fa fa-home mr-1'}"></i>
+							<a th:text="${category !=null ? category.title : ' ' }"
+							th:href="@{/course/category/{id}(id=${category.id})}"> Course List </a></li>
+
+						<li class="breadcrumb-item"><a th:text="${course.title}"
+							th:href="@{/lecturer/course/detail/{id}(id=${course.id})}">
+								Course List </a></li>
+						<li class="breadcrumb-item active"><a href="#"></a>Add new target</li>
+
+						
+					</ol>
+				</div>
+			</div>
+			<div class="col-sm-12">
+				<div class="card">
+					<div class="card-header">
+						<h2 class="text-uppercase text-center">Add new target</h2>
+					</div>
+					<div class="card-block">
+						<form th:action="@{/lecturer/course/target/add}" th:object="${target}"
+							method="post">
+							<div class="row">
+								<div class="col-md-6 m-auto">
+									<div class="form-group">
+										<label>Title</label> <input type="text" th:field="*{title}"
+											class="form-control" />
+										<p class="text-danger" th:if="${#fields.hasErrors('title')}"
+											th:errors="*{title}"></p>
+									</div>
+									
+									<div class="form-group">
+										<label>Course Name</label> <input disabled th:field="*{courseName}"
+											type="text" class="form-control" />
+									</div>
+									<input type="hidden" th:field="*{courseId}">
+									<div class="form-group mt-3">
+										<button type="submit" class="btn btn-primary m-b-0">Save</button>
+										<a th:href="@{/lecturer/course/detail/{id}(id=${course.id})}"
+											class="btn btn-secondary text-white">Back</a>
+									</div>
+								</div>
+							</div>
+						</form>
+						<div class="d-flex justify-content-center text-danger"
+							th:if="${message != null}" th:text="${message}"></div>
+
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

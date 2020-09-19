@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout/admin/default">
+<head>
+<title>EDIT TARGET</title>
+</head>
+<body>
+	<div layout:fragment="content">
+		<div class="row">
+			<div class="col-md-12 mb-2">
+				<div class="page-header-breadcrumb">
+					<ul class="breadcrumb-title">
+						<li class="breadcrumb-item"><a th:href="@{/admin}"> <i
+								class="feather icon-home"></i> Homepage
+						</a></li>
+						<li class="breadcrumb-item"><a th:href="@{/admin/target}">Target List</a></li>
+						<li class="breadcrumb-item"><a href="#!">Edit target</a></li>
+					</ul>
+				</div>
+			</div>
+			<div class="col-sm-12">
+				<div class="card">
+					<div class="card-header">
+						<h2 class="text-uppercase text-center">Edit target</h2>
+					</div>
+					<div class="card-block">
+						<form th:action="@{/admin/target/edit}" th:object="${target}"
+							method="post">
+							<div class="row">
+								<input type="hidden" th:field="*{id}" class="form-control" />
+
+								<div class="col-md-6 m-auto">
+									<input type="hidden" th:field="*{id}" class="form-control" />
+									<div class="form-group">
+										<label>Title</label> <input type="text" th:field="*{title}"
+											class="form-control" />
+										<p class="text-danger" th:if="${#fields.hasErrors('title')}"
+											th:errors="*{title}"></p>
+									</div>
+									<div class="form-group">
+										<label>Course</label> <select name="courseId"
+											class="form-control">
+											<option th:each="item : ${courses}" th:value="${item.id}"
+												th:text="${item.title}" th:field="*{courseId}"></option>
+
+										</select>
+									</div>
+									<div class="form-group mt-3">
+										<button type="submit" class="btn btn-primary m-b-0">Save</button>
+										<a th:href="@{/admin/target}"
+											class="btn btn-secondary text-white">Back</a>
+									</div>
+								</div>
+							</div>
+						</form>
+						<div class="d-flex justify-content-center text-danger"
+							th:if="${message != null}" th:text="${message}"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

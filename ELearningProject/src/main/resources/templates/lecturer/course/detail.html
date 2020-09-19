@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="/layout/lecturer/default">
+
+<head>
+<title>COURSE DETAIL</title>
+</head>
+<body>
+
+	<div layout:fragment="content">
+		<section class="">
+			<nav aria-label="breadcrumb" xmlns:th="http://www.thymeleaf.org">
+				<div class="container-fluid">
+					<ol class="breadcrumb bg-light mb-0 py-2">
+
+						<li class="breadcrumb-item"><a th:href="@{/lecturer}"><i
+								class="fa fa-home mr-1"></i><span th:text="Home"></span> </a></li>
+						<li class="breadcrumb-item"><i
+							th:class="${category !=null ? category.icon : 'fa fa-home mr-1'}"></i>
+							<a th:text="${category !=null ? category.title : ' ' }"
+							th:href="@{/course/category/{id}(id=${category.id})}"> Course List </a></li>
+						<li th:text="${course.title}" class="breadcrumb-item active"
+							aria-current="page"></li>
+					</ol>
+				</div>
+			</nav>
+
+			<div class="container col-12">
+				<div class="course-banner col-xs-1">
+					<h1 class="d-flex justify-content-center" th:text="${course.title}">Complete
+						Python Bootcamp: Go from zero to hero in Python 3</h1>
+					<h5 class="d-flex justify-content-center"
+						th:text="${course.description}">Learn Python like a
+						Professional! Start from the basics and go all the way to creating
+						your own applications and games!</h5>
+					<h6 class="mt-3 d-flex justify-content-center">
+						<span><i class="fa fa-user"></i> Created by </span> <a
+							th:text="${course.author}"
+							class="text-white font-weight-bold ml-2 mr-5">Lê Quang Song</a> <span
+							th:text="${#dates.format(course.lastUpdate, 'dd-MMM-yyyy')} + ' at '+ ${#dates.format(course.lastUpdate, 'HH:mm')}"><i
+							class="fa fa-calendar-check-o"></i> Last updated 04/2019</span>
+					</h6>
+					<h6 class="mt-3 d-flex justify-content-center">
+						<span th:text="${course.lectureCount + ' lectures'}"><i
+							class="fa fa-play-circle mr-1"></i> 180 lectures</span> <span
+							class="mx-1"> | </span> <span
+							th:text="${course.lengthVideos / 60} + ' hour ' + ${course.lengthVideos % 60} + ' minute'"><i
+							class="fa fa-clock-o mr-1"></i> 40 hours</span> <span class="ml-2">with
+							<b th:text="${studentNumber}" class="mx-1"></b> students enrolled
+						</span>
+					</h6>
+				</div>
+			</div>
+		</section>
+
+		<section class="course-content">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-8">
+						<!-- BEGIN DESC -->
+						<div class="course-desc">
+							<h4 class="course-desc-title">What you'll learn</h4>
+							<a th:href="@{/lecturer/course/target/add/{id}(id=${course.id})}"
+									class="btn  btn-xs text-success"><i class="fa fa-plus"></i>	Add new target</a>
+							<div class="row">
+								<div class="col-md-12">
+									<ul class="course-desc-items">
+							
+										<li th:each="item : ${targets}"><i class="fa fa-check"></i>
+											<span th:text="${item.title}">Learn to use Python
+												professionally, learning both Python 2 and Python 3!</span>
+												
+												<a th:href="@{/lecturer/course/target/edit/{id}(id=${item.id})}"
+										class="btn  btn-xs text-warning"><i class="fa fa-pencil"></i>	Edit </a>
+										<a th:href="@{/lecturer/course/target/delete/{id}(id=${item.id})}"
+										class="btn  btn-xs text-danger"><i class="fa fa-times"></i>	Remove</a>
+												</li>
+
+									</ul>
+								</div>
+
+							</div>
+						</div>
+						<!-- END DESC -->
+						<!-- BEGIN LIST -->
+						<div class="course-list">
+							<div
+								class="list-header d-flex align-items-center justify-content-between">
+								<h4 class="font-weight-bold">Course content</h4>
+								<div>
+									<span th:text="${course.lectureCount} + ' lectures'"
+										class="mr-3">180 lectures</span>
+								</div>
+							</div>
+							<div class="mt-2">
+								<a href="#list-content" class="list-content-first"
+									data-toggle="collapse"> <span><i
+										class="fa fa-minus mr-1"></i> Course list</span> <span
+									th:text="${course.lengthVideos / 60} + ':' +${course.lengthVideos % 60}">40:28:55</span>
+								</a> <a th:href="@{/lecturer/course/video/add/{id}(id=${course.id})}"
+									class="btn  btn-xs text-success"><i class="fa fa-plus"></i>	Add new video</a>
+								<ul id="list-content" class="collapse show">
+									<li th:each="item : ${videos}"><a
+										th:href="${item.url}"
+										target="_blank"> <span th:text="${item.title}"> <i
+												class="fa fa-play-circle mr-1"></i> Course Introduction
+										</span> <span
+											th:text="${item.length / 60} + ':' +${item.length % 60}"></span>
+									</a> <a th:href="@{/lecturer/course/video/edit/{id}(id=${item.id})}"
+										class="btn  btn-xs text-warning"><i class="fa fa-pencil"></i>	Edit</a>
+										<a th:href="@{/lecturer/course/video/delete/{id}(id=${item.id})}"
+										class="btn  btn-xs text-danger"><i class="fa fa-times"></i>	Remove</a>
+									</li>
+
+
+
+
+
+
+
+								</ul>
+							</div>
+						</div>
+						<!-- END LIST -->
+						<!-- BEGIN INFO -->
+						<div class="course-info mt-4">
+							<h4 class="font-weight-bold">Description</h4>
+							<div class="">
+								<p>
+									<strong th:text="${course.description}">Become a
+										Python Programmer and learn one of employer's most requested
+										skills of 2018!</strong><br>
+								</p>
+								<p th:text="${course.content}">
+									This is the <strong>most comprehensive, yet
+										straight-forward, course for the Python programming language
+										on Udemy!</strong> Whether you have never programmed before, already
+									know basic syntax, or want to learn about the advanced features
+									of Python, this course is for you! In this course we will&nbsp;<strong>teach
+										you Python 3. </strong>(Note, we also provide older&nbsp;Python 2 notes
+									in case you need them)
+								</p>
+
+
+
+
+
+							</div>
+						</div>
+						<!-- END INFO -->
+					</div>
+					<div class="col-4" style="background: #f7f7f7">
+						<div class="">
+							<h2 class="mb-4 font-weight-bold ">
+								<h1 class="text-center m-20"
+									th:text="${course.price - course.price * course.discount / 100} + ' $'">
+									1.200.000 đ</h1>
+								<h3 class="text-secondary text-center">
+									<del th:text="${course.price} + ' $'">1.600.000 đ</del>
+								</h3>
+
+							</h2>
+							<a th:href="@{/lecturer/course/member/{id}(id=${course.id})}"
+								class="btn btn-danger w-100">View Members</a> <a
+								th:href="@{/lecturer/course/edit/{id}(id=${course.id})}"
+								class="btn  w-100" style="background: white;">Edit Course</a> <a
+								class="course-buy-share border-top" href="#"> <i
+								class="fa fa-share"></i> Share
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+	</div>
+
+</body>

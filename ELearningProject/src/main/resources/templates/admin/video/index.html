@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout/admin/default">
+<head>
+<title>VIDEOS</title>
+<script src='https://kit.fontawesome.com/a076d05399.js'></script>
+
+
+
+</head>
+<body>
+	<div layout:fragment="content">
+		<div class="row">
+			<div class="col-md-12 mb-2">
+				<div class="page-header-breadcrumb">
+					<ul class="breadcrumb-title">
+						<li class="breadcrumb-item"><a th:href="@{/admin}"> <i
+								class="feather icon-home"></i> Home page
+						</a></li>
+						<li class="breadcrumb-item"><a href="#!">Video List</a></li>
+					</ul>
+				</div>
+			</div>
+			<div class="col-sm-12">
+				<div class="card px-3">
+					<div class="card-header px-0 pb-2">
+						<h2 class="text-uppercase text-center">Video List</h2>
+						<a th:href="@{/admin/video/add}"
+							class="text-uppercase btn btn-sm btn-primary">Add new video</a>
+					</div>
+
+					<div class="card-block table-border-style">
+						<div class="table-responsive">
+
+							<table class="table table-bordered">
+								<thead>
+									<tr>
+										<th class="text-center">No</th>
+										<th class="text-center">Title</th>
+										<th class="text-center">Length</th>
+
+										<th class="text-center">URL</th>
+										<th class="text-center">View(s)</th>
+										<th class="text-center">Course Name</th>
+										<th class="text-center">Action</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr class="text-center" th:if="${videos.empty}">
+										<td colspan="100%">List is empty!</td>
+									</tr>
+									<tr th:each="item : ${videos}">
+										<td class="text-center" th:text="${ itemStat.index + 1 }"></td>
+										<td class="text-center" th:text="${ item.title }"></td>
+										<td class="text-center" th:text="${ item.length } + ' minutes'"></td>
+
+										<td class="text-center"><a target="_blank"
+											th:href="${ item.url }" th:text="${ item.url }"></a></td>
+										<td class="text-center" th:text="${ item.timeCount }"></td>
+										<td class="text-center" th:text="${ item.courseName }"></td>
+										<td class="text-center"><a
+											th:href="@{/admin/video/edit/{id}(id=${item.id})}"
+											class="btn btn-sm btn-info btn-round py-1 font-weight-bold">
+												Edit </a> <a
+											th:href="@{/admin/video/delete/{id}(id=${item.id})}"
+											class="btn btn-sm btn-danger btn-round py-1 font-weight-bold">
+												Delete </a></td>
+									</tr>
+
+								</tbody>
+								<h2 class="d-flex justify-content-center text-danger medium"
+									th:if="${message != null}" th:text="${message}"></h2>
+
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
